@@ -23,7 +23,7 @@ public sealed class EpcisContext : DbContext
     {
         var eventContext = new EventQueryContext(this, parameters);
         
-        return eventContext.ApplyTo(Set<Event>());
+        return eventContext.ApplyTo(Set<Event>().Where(x => x.Request.Completed && x.Request.RecordTime.HasValue));
     }
 
     public IQueryable<MasterData> QueryMasterData(IEnumerable<QueryParameter> parameters)
